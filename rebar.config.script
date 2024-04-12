@@ -165,9 +165,9 @@ PortOpts = fun() ->
 
 %% PCDep = {pc, {git, "https://github.com/blt/port_compiler", {tag, "v1.11.0"}}}.
 PCDep = {pc, "1.14.0"}.
-%% TestDeps = [{triq, ".*",
-%%              {git, "https://gitlab.com/triq/triq.git", {branch, "master"}}}].
-TestDeps = [triq].
+TestDeps = [{triq, ".*",
+              {git, "https://gitlab.com/triq/triq.git", {branch, "master"}}}].
+%% TestDeps = [{triq, "1.3.0"}].
 
 DebugWarns = [warnings_as_errors].
 Artifact = case os:type() of
@@ -183,6 +183,10 @@ GeneralOpts = [ {plugins, [PCDep]}
                     , {clean, {pc, clean}}
                     ]}
                  ]}
+              , {xref_checks,
+  		  [undefined_function_calls,undefined_functions,
+    			locals_not_used,
+    			deprecated_function_calls, deprecated_functions]}
               , {profiles
                 , [ {test
                     , [ {deps, TestDeps}
